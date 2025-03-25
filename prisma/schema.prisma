@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String              @id @default(uuid())
+  name          String
+  email         String              @unique
+  password      String
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  // Relations
+  events        Event[]
+  registrations EventRegistration[]
+  limits        OrganizerLimit?
+  logs          EventLog[]
+}
+
+model Event {
+  id            String              @id @default(uuid())
+  userId        String
+  name          String
+  description   String?
+  location      String?
+  startTime     DateTime
+  endTime       DateTime
+  capacity      Int
+  status        String              @default("open") // "open" یا "closed"
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  user          User                @relation(fields: [userId], references: [id])
+  registrations EventRegistration[]
+  logs          EventLog[]
+}
+
+model EventRegistration {
+  id           String   @id @default(uuid())
+  eventId      String
+  userId       String
+  registeredAt DateTime @default(now())
+  event        Event    @relation(fields: [eventId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId])
+}
+
+model EventLog {
+  id        String   @id @default(uuid())
+  eventId   String
+  userId    String
+  action    String
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model OrganizerLimit {
+  userId          String @id
+  maxActiveEvents Int    @default(5)
+  user            User   @relation(fields: [userId], references: [id])
+}
