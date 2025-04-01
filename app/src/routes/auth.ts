@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.post('/register', register);
 
-export {router as authRouter};
+export { router as authRouter };

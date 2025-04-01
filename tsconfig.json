@@ -10,11 +10,11 @@
         "noImplicitReturns": true,
         "noImplicitAny": true,
         "forceConsistentCasingInFileNames": true,
-        
+
         "strict": true,
         "skipLibCheck": true,
         "types": ["node"]
     },
     "include": ["app/src/**/*"],
-    "exclude": ["node_modules", "dist", "prisma/generated"]
+    "exclude": ["node_modules", "app/dist", "prisma/generated"]
 }
