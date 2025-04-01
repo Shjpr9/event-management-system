@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { ValidationError } from 'joi';
-import { sendResponse } from '../response/responseHandler';
+import Joi from 'joi';
+import { sendResponse } from '../response/responseHandler.js';
 
 export function globalErrorHandler(
     err: any,
@@ -8,6 +8,7 @@ export function globalErrorHandler(
     res: Response,
     next: NextFunction
 ) {
+    const {ValidationError} = Joi;
     if (err instanceof ValidationError) {
         sendResponse(
             res,

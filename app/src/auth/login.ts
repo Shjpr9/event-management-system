@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
 import { prisma } from '../client.js';
-import { registerSchema } from '../validation/validations.js';
+import { loginSchema } from '../validation/validations.js';
 import { sendResponse } from '../response/responseHandler.js';
 import jwt from 'jsonwebtoken';
 
-// TODO: password hashing
-
-export async function register(req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
     const jwtSecret = process.env.JWT_SECRET;
 
     if (!jwtSecret) {
@@ -14,8 +12,8 @@ export async function register(req: Request, res: Response) {
         return;
     }
 
-    const { name, email, password } = req.body;
-    const { error, value } = registerSchema.validate({ name, email, password });
+    const { email, password } = req.body;
+    const { error, value } = loginSchema.validate({ email, password });
 
     if (error) {
         sendResponse(
@@ -28,15 +26,15 @@ export async function register(req: Request, res: Response) {
     }
 
     try {
-        const user = await prisma.user.create({
-            data: value,
+        const user = await prisma.user.findFirstOrThrow({
+            where: value,
         });
         const token = jwt.sign({ user_id: user.id }, jwtSecret, {
-                    algorithm: 'HS256',
-                    expiresIn: '1h',
-                });
-        sendResponse(res, true, 'User created successfully!', {token});
+            algorithm: 'HS256',
+            expiresIn: '1h',
+        });
+        sendResponse(res, true, 'User logged in successfully!', {token});
     } catch (error: any) {
-        sendResponse(res, false, 'Error creating user!', error.message);
+        sendResponse(res, false, 'Error logging in the user!', error.message);
     }
 }
