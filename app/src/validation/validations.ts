@@ -11,4 +11,17 @@ const loginSchema = Joi.object({
     password: Joi.string().required(),
 });
 
-export { registerSchema, loginSchema };
+const eventSchema = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string(),
+    location: Joi.string(),
+    startTime: Joi.date().required(),
+    endTime: Joi.date().required(),
+    capacity: Joi.number().required(),
+});
+
+export { 
+    registerSchema, 
+    loginSchema, 
+    eventSchema, 
+};
