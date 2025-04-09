@@ -20,8 +20,4 @@ const eventSchema = Joi.object({
     capacity: Joi.number().required(),
 });
 
-export { 
-    registerSchema, 
-    loginSchema, 
-    eventSchema, 
-};
+export { registerSchema, loginSchema, eventSchema };

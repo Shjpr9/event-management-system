@@ -8,12 +8,16 @@ export async function getMyRegistrations(req: Request, res: Response) {
             where: {
                 userId: req.body.user.id,
             },
-            include: {
-                event: true,
-            },
         });
-        sendResponse(res, true, 'Registrations retrieved successfully!', { registrations });
+        sendResponse(res, true, 'Registrations retrieved successfully!', {
+            registrations,
+        });
     } catch (error: any) {
-        sendResponse(res, false, 'Error retrieving registrations!', error.message);
+        sendResponse(
+            res,
+            false,
+            'Error retrieving registrations!',
+            error.message
+        );
     }
 }

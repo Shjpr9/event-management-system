@@ -8,7 +8,7 @@ export function globalErrorHandler(
     res: Response,
     next: NextFunction
 ) {
-    const {ValidationError} = Joi;
+    const { ValidationError } = Joi;
     if (err instanceof ValidationError) {
         sendResponse(
             res,

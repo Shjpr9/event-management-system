@@ -32,10 +32,10 @@ export async function register(req: Request, res: Response) {
             data: value,
         });
         const token = jwt.sign({ user_id: user.id }, jwtSecret, {
-                    algorithm: 'HS256',
-                    expiresIn: '1h',
-                });
-        sendResponse(res, true, 'User created successfully!', {token});
+            algorithm: 'HS256',
+            expiresIn: '1h',
+        });
+        sendResponse(res, true, 'User created successfully!', { token });
     } catch (error: any) {
         sendResponse(res, false, 'Error creating user!', error.message);
     }

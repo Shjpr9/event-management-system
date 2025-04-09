@@ -3,32 +3,35 @@ import { prisma } from '../client.js';
 import { sendResponse } from '../response/responseHandler.js';
 import { eventLogger } from '../helpers/eventLogger.js';
 
-
 export async function leaveEvent(req: Request, res: Response) {
     try {
         const event = await prisma.event.findUniqueOrThrow({
             where: {
-                id: req.params.id
-            }
+                id: req.params.id,
+            },
         });
         if (event.userId == req.body.userId) {
-            sendResponse(res, false, "You cant leave your own event");
+            sendResponse(res, false, 'You cant leave your own event');
             return;
         }
-        const registeration = await prisma.eventRegistration.findFirstOrThrow({
+        const registeration = await prisma.eventRegistration.findFirst({
             where: {
                 userId: req.body.user.id,
-                eventId: event.id
-            }
+                eventId: event.id,
+            },
         });
+        if (!registeration) {
+            sendResponse(res, false, 'You are not registered for this event');
+            return;
+        }
         await prisma.eventRegistration.delete({
             where: {
-                id: registeration.id
-            }
+                id: registeration.id,
+            },
         });
-        await eventLogger("leave", event.id, req.body.user.id);
-        sendResponse(res, true, "Left event successfully");
+        await eventLogger('leave', event.id, req.body.user.id);
+        sendResponse(res, true, 'Left event successfully');
     } catch (error: any) {
-        sendResponse(res, false, "Error leaving event", error.message);
+        sendResponse(res, false, 'Error leaving event', error.message);
     }
 }

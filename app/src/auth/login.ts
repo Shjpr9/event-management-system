@@ -26,14 +26,18 @@ export async function login(req: Request, res: Response) {
     }
 
     try {
-        const user = await prisma.user.findFirstOrThrow({
+        const user = await prisma.user.findFirst({
             where: value,
         });
+        if (!user) {
+            sendResponse(res, false, 'Invalid credentials!', null);
+            return;
+        }
         const token = jwt.sign({ user_id: user.id }, jwtSecret, {
             algorithm: 'HS256',
             expiresIn: '1h',
         });
-        sendResponse(res, true, 'User logged in successfully!', {token});
+        sendResponse(res, true, 'User logged in successfully!', { token });
     } catch (error: any) {
         sendResponse(res, false, 'Error logging in the user!', error.message);
     }

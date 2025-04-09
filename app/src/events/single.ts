@@ -18,7 +18,7 @@ export async function getSingleEvent(req: Request, res: Response) {
                 endTime: true,
                 capacity: true,
                 status: true,
-            }
+            },
         });
         sendResponse(res, true, 'Event retrieved successfully!', { event });
     } catch (error: any) {

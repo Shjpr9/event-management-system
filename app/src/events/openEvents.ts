@@ -6,17 +6,28 @@ export async function getOpenEvents(req: Request, res: Response) {
     try {
         const events = await prisma.event.findMany({
             where: {
-                status: "open"
+                status: 'open',
             },
             select: {
                 id: true,
                 userId: true,
                 name: true,
                 description: true,
-            }
+            },
         });
-        sendResponse(res, true, 'Open events retrieved successfully!', { events });
+        if (events.length === 0) {
+            sendResponse(res, false, 'No open events found!');
+            return;
+        }
+        sendResponse(res, true, 'Open events retrieved successfully!', {
+            events,
+        });
     } catch (error: any) {
-        sendResponse(res, false, 'Error retrieving open events!', error.message);
+        sendResponse(
+            res,
+            false,
+            'Error retrieving open events!',
+            error.message
+        );
     }
 }

@@ -2,7 +2,6 @@ import e, { Request, Response } from 'express';
 import { prisma } from '../client.js';
 import { sendResponse } from '../response/responseHandler.js';
 
-
 export async function deleteEvent(req: Request, res: Response) {
     const eventId = req.params.id;
     const userId = req.body.user.id;
@@ -13,15 +12,23 @@ export async function deleteEvent(req: Request, res: Response) {
                 id: eventId,
             },
             include: {
-                registrations: true
-            }
+                registrations: true,
+            },
         });
         if (event.userId !== userId) {
-            sendResponse(res, false, 'You are not authorized to update this event!');
+            sendResponse(
+                res,
+                false,
+                'You are not authorized to delete this event!'
+            );
             return;
         }
         if (event.registrations.length > 0) {
-            sendResponse(res, false, 'You cant delete event with registrations!');
+            sendResponse(
+                res,
+                false,
+                'You cant delete event with registrations!'
+            );
             return;
         }
         await prisma.event.delete({
