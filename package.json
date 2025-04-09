@@ -7,7 +7,9 @@
         "start": "tsc && node ./app/dist/app.js",
         "format": "prettier --write .",
         "compile": "tsc && npm run format",
-        "dev": "nodemon"
+        "dev": "nodemon",
+        "generate": "prisma generate",
+        "migrate": "prisma migrate dev --name init"
     },
     "keywords": [],
     "author": "",
