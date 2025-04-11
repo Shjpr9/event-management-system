@@ -10,6 +10,7 @@ import { leaveEvent } from '../events/leave.js';
 import { getMyRegistrations } from '../events/getMyRegs.js';
 import { getEventLogs } from '../events/eventLogs.js';
 import { getAllUsersEvents } from '../events/allEventsUsers.js';
+import { getEventMembers } from '../events/members.js';
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ router.delete('/:id/leave', assignUser, leaveEvent);
 
 router.get('/me/registrations', assignUser, getMyRegistrations);
 router.get('/:id/logs', assignUser, getEventLogs);
+router.get('/:id/members', assignUser, getEventMembers);
 
 router.post('/create', assignUser, createEvent);
 
