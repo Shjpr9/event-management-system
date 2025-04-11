@@ -7,6 +7,7 @@ import { openEventsCount } from '../helpers/openEventsCount.js';
 export async function createEvent(req: Request, res: Response) {
     const { name, description, location, startTime, endTime, capacity } =
         req.body;
+    const user = req.body.user;
     const { error, value } = eventSchema.validate({
         name,
         description,
@@ -27,8 +28,8 @@ export async function createEvent(req: Request, res: Response) {
     }
 
     try {
-        const count = await openEventsCount(req.body.user.id);
-        if (count > 5) {
+        const count = await openEventsCount(user.id);
+        if (count > 5 && !user.isAdmin) {
             sendResponse(
                 res,
                 false,
@@ -39,7 +40,7 @@ export async function createEvent(req: Request, res: Response) {
         const event = await prisma.event.create({
             data: {
                 ...value,
-                userId: req.body.user.id,
+                userId: user.id,
             },
         });
         sendResponse(res, true, 'Event created successfully!', { event });

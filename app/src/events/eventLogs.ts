@@ -4,6 +4,7 @@ import { sendResponse } from '../response/responseHandler.js';
 
 export async function getEventLogs(req: Request, res: Response) {
     try {
+        const user = req.body.user;
         const event = await prisma.event.findUniqueOrThrow({
             where: {
                 id: req.params.id,
@@ -13,7 +14,7 @@ export async function getEventLogs(req: Request, res: Response) {
                 logs: true,
             },
         });
-        if (event.userId !== req.body.user.id) {
+        if (event.userId !== user.id && !user.isAdmin) {
             sendResponse(res, false, 'You are not the owner of this event');
             return;
         }

@@ -4,7 +4,7 @@ import { sendResponse } from '../response/responseHandler.js';
 
 export async function updateEvent(req: Request, res: Response) {
     const eventId = req.params.id;
-    const userId = req.body.user.id;
+    const user = req.body.user.id;
 
     try {
         const event = await prisma.event.findUniqueOrThrow({
@@ -12,7 +12,7 @@ export async function updateEvent(req: Request, res: Response) {
                 id: eventId,
             },
         });
-        if (event.userId !== userId) {
+        if (event.userId !== user.userId && !user.isAdmin) {
             sendResponse(
                 res,
                 false,

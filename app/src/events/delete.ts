@@ -4,7 +4,7 @@ import { sendResponse } from '../response/responseHandler.js';
 
 export async function deleteEvent(req: Request, res: Response) {
     const eventId = req.params.id;
-    const userId = req.body.user.id;
+    const user = req.body.user;
 
     try {
         const event = await prisma.event.findUniqueOrThrow({
@@ -15,7 +15,7 @@ export async function deleteEvent(req: Request, res: Response) {
                 registrations: true,
             },
         });
-        if (event.userId !== userId) {
+        if (event.userId !== user.userId && !user.isAdmin) {
             sendResponse(
                 res,
                 false,
@@ -23,7 +23,7 @@ export async function deleteEvent(req: Request, res: Response) {
             );
             return;
         }
-        if (event.registrations.length > 0) {
+        if (event.registrations.length > 0 && !user.isAdmin) {
             sendResponse(
                 res,
                 false,

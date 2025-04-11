@@ -9,10 +9,13 @@ import { joinEvent } from '../events/join.js';
 import { leaveEvent } from '../events/leave.js';
 import { getMyRegistrations } from '../events/getMyRegs.js';
 import { getEventLogs } from '../events/eventLogs.js';
+import { getAllUsersEvents } from '../events/allEventsUsers.js';
 
 const router = express.Router();
 
 router.get('/', getOpenEvents); // add pagination later
+
+router.get('/users', assignUser, getAllUsersEvents);
 
 router.get('/:id', getSingleEvent);
 router.put('/:id', assignUser, updateEvent);

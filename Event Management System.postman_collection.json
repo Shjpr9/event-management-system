@@ -1,372 +1,498 @@
 {
-    "info": {
-        "_postman_id": "8301611b-f5a0-418f-af68-6267d65dacb9",
-        "name": "Event Management System",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-        "_exporter_id": "37613936"
-    },
-    "item": [
-        {
-            "name": "Auth",
-            "item": [
-                {
-                    "name": "Register",
-                    "request": {
-                        "method": "POST",
-                        "header": [],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "John Doe",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "email",
-                                    "value": "test@yahoo.com",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "password",
-                                    "value": "password",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{base-url}}/auth/register",
-                            "host": ["{{base-url}}"],
-                            "path": ["auth", "register"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Login",
-                    "request": {
-                        "method": "POST",
-                        "header": [],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "email",
-                                    "value": "shayan2396@gmail.com",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "password",
-                                    "value": "manoto123",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{base-url}}/auth/login",
-                            "host": ["{{base-url}}"],
-                            "path": ["auth", "login"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Get User",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/auth/user",
-                            "host": ["{{base-url}}"],
-                            "path": ["auth", "user"]
-                        }
-                    },
-                    "response": []
-                }
-            ],
-            "description": "User authentication related routes"
-        },
-        {
-            "name": "Events",
-            "item": [
-                {
-                    "name": "Open Events",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", ""]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Single Event",
-                    "request": {
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Create Event",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "The Big Event",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "description",
-                                    "value": "This is the biggest event of all time",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "location",
-                                    "value": "Iran/Tehran",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "startTime",
-                                    "value": "Wed, 09 Apr 2025 07:34:07 +0000",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "endTime",
-                                    "value": "Tue, 15 Apr 2025 07:34:07 +0000",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "capacity",
-                                    "value": "114",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{base-url}}/events/create",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "create"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Edit Event",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "PUT",
-                        "header": [],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "location",
-                                    "value": "Iran/Shiraz",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "capacity",
-                                    "value": "114",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "description",
-                                    "value": "An event for geek lovers",
-                                    "type": "text",
-                                    "disabled": true
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Delete Event",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Event's Registrations Logs",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}/logs",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}", "logs"]
-                        }
-                    },
-                    "response": []
-                }
-            ],
-            "description": "Events related routes"
-        },
-        {
-            "name": "Registrations",
-            "item": [
-                {
-                    "name": "Join an Event",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "POST",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}/join",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}", "join"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Leave an Event",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/{{event-id}}/leave",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "{{event-id}}", "leave"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "User Registered Events",
-                    "request": {
-                        "auth": {
-                            "type": "bearer",
-                            "bearer": [
-                                {
-                                    "key": "token",
-                                    "value": "{{access-token}}",
-                                    "type": "string"
-                                }
-                            ]
-                        },
-                        "method": "GET",
-                        "header": [],
-                        "url": {
-                            "raw": "{{base-url}}/events/me/registrations",
-                            "host": ["{{base-url}}"],
-                            "path": ["events", "me", "registrations"]
-                        }
-                    },
-                    "response": []
-                }
-            ],
-            "description": "Event Registration related routes"
-        }
-    ],
-    "variable": [
-        {
-            "key": "base-url",
-            "value": "",
-            "type": "default"
-        },
-        {
-            "key": "access-token",
-            "value": "",
-            "type": "default"
-        },
-        {
-            "key": "event-id",
-            "value": "",
-            "type": "default"
-        }
-    ]
+	"info": {
+		"_postman_id": "8301611b-f5a0-418f-af68-6267d65dacb9",
+		"name": "Event Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37613936"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "John Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@yahoo.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/auth/register",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "su@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "supass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/auth/login",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/auth/user",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/auth/user/{{user-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"{{user-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "User authentication related routes"
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Open Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Single Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "The Big Event",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is the biggest event of all time",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Iran/Tehran",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "Wed, 09 Apr 2025 07:34:07 +0000",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "Tue, 15 Apr 2025 07:34:07 +0000",
+									"type": "text"
+								},
+								{
+									"key": "capacity",
+									"value": "114",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/events/create",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "location",
+									"value": "Iran/Shiraz",
+									"type": "text"
+								},
+								{
+									"key": "capacity",
+									"value": "114",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "An event for geek lovers",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event's Registrations Logs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}/logs",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Users With Open Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/users",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Events related routes"
+		},
+		{
+			"name": "Registrations",
+			"item": [
+				{
+					"name": "Join an Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}/join",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leave an Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/{{event-id}}/leave",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"{{event-id}}",
+								"leave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Registered Events",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access-token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base-url}}/events/me/registrations",
+							"host": [
+								"{{base-url}}"
+							],
+							"path": [
+								"events",
+								"me",
+								"registrations"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Event Registration related routes"
+		}
+	],
+	"variable": [
+		{
+			"key": "base-url",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "access-token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "event-id",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "user-id",
+			"value": "3c32f3fb-b217-40eb-9b73-cb0d0dcecd0f",
+			"type": "default"
+		}
+	]
 }

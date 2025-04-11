@@ -9,7 +9,11 @@ import { bootstrap } from './bootstrap.js';
 const app = express();
 
 // Bootstrap the application
-bootstrap([createSuperUser]).catch(error => {
+const bootstrapFunctions = [
+    createSuperUser,
+];
+
+bootstrap(bootstrapFunctions).catch(error => {
     console.error('Application failed to start:', error);
     process.exit(1);
 });

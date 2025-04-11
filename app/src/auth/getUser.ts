@@ -7,6 +7,7 @@ export async function getUser(req: Request, res: Response) {
         id: req.body.user.id,
         name: req.body.user.name,
         email: req.body.user.email,
+        isAdmin: req.body.user.isAdmin,
         createdAt: req.body.user.createdAt,
         updatedAt: req.body.user.updatedAt,
     };
